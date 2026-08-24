@@ -1,0 +1,15 @@
+<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Sales Dashboard</title>
+<style>
+body{margin:0;font-family:Arial;background:#0b1020;color:#eef2ff}.wrap{max-width:1100px;margin:auto;padding:30px}.top{display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap}h1{margin:0}.sub,.label{color:#aab5cf}.control{background:#151d33;border:1px solid #303b59;padding:10px;color:#fff;border-radius:9px}.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:15px;margin:25px 0}.card,.panel{background:#11182b;border:1px solid #293650;border-radius:15px;padding:20px}.value{font-size:27px;font-weight:800;margin-top:8px}.panels{display:grid;grid-template-columns:1fr 1fr;gap:15px}.row{display:flex;justify-content:space-between;margin:15px 0;gap:15px}.bar{height:9px;background:#252f48;border-radius:8px;margin-top:7px;overflow:hidden}.fill{height:100%;background:#6674f5}@media(max-width:800px){.grid{grid-template-columns:1fr 1fr}.panels{grid-template-columns:1fr}}@media(max-width:480px){.grid{grid-template-columns:1fr}}
+</style></head><body><div class="wrap"><div class="top"><div><h1>Sales Dashboard</h1><p class="sub">Dynamic date-based dashboard</p></div><label>Select date: <input id="date" class="control" type="date" value="2026-05-25"></label></div>
+<p id="status" class="sub">Loading...</p><div class="grid">
+<div class="card"><div class="label">Total Sales</div><div id="sales" class="value">—</div></div>
+<div class="card"><div class="label">Total Orders</div><div id="orders" class="value">—</div></div>
+<div class="card"><div class="label">Average Order Value</div><div id="aov" class="value">—</div></div>
+<div class="card"><div class="label">Total Customers</div><div id="customers" class="value">—</div></div></div>
+<div class="panels"><section class="panel"><h2>Sales by Category</h2><div id="categories"></div></section><section class="panel"><h2>Recent Daily Sales</h2><div id="daily"></div></section></div>
+<p class="sub">Demo dashboard with sample data for submission/testing.</p></div>
+<script>
+const money=n=>new Intl.NumberFormat('en-IN',{style:'currency',currency:'INR',maximumFractionDigits:0}).format(n);
+async function load(d){try{let r=await fetch('data/'+d+'.json');if(!r.ok)throw Error('No data for this date');let x=await r.json();sales.textContent=money(x.kpis.totalSales);orders.textContent=x.kpis.totalOrders;aov.textContent=money(x.kpis.averageOrderValue);customers.textContent=x.kpis.totalCustomers;let m=Math.max(...x.salesByCategory.map(a=>a.sales));categories.innerHTML=x.salesByCategory.map(a=>'<div class="row"><div style="flex:1"><b>'+a.category+'</b><div class="bar"><div class="fill" style="width:'+(a.sales/m*100)+'%"></div></div></div><b>'+money(a.sales)+'</b></div>').join('');daily.innerHTML=x.dailySales.map(a=>'<div class="row"><span>'+a.date+'</span><b>'+money(a.sales)+'</b></div>').join('');status.textContent='Data loaded for '+x.date}catch(e){status.textContent=e.message+' (try 2026-05-24 or 2026-05-25)'}}date.onchange=e=>load(e.target.value);load('2026-05-25');
+</script></body></html>
