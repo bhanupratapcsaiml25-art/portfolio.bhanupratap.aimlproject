@@ -1,0 +1,54 @@
+{
+  "date": "2026-05-24",
+  "currency": "INR",
+  "kpis": {
+    "totalSales": 193000,
+    "totalOrders": 151,
+    "averageOrderValue": 1278.15,
+    "totalCustomers": 119
+  },
+  "salesByCategory": [
+    {
+      "category": "Electronics",
+      "sales": 92500
+    },
+    {
+      "category": "Clothing",
+      "sales": 61750
+    },
+    {
+      "category": "Home & Kitchen",
+      "sales": 48700
+    },
+    {
+      "category": "Beauty",
+      "sales": 28750
+    },
+    {
+      "category": "Sports",
+      "sales": 17050
+    }
+  ],
+  "dailySales": [
+    {
+      "date": "2026-05-21",
+      "sales": 35200
+    },
+    {
+      "date": "2026-05-22",
+      "sales": 41750
+    },
+    {
+      "date": "2026-05-23",
+      "sales": 38900
+    },
+    {
+      "date": "2026-05-24",
+      "sales": 47150
+    },
+    {
+      "date": "2026-05-25",
+      "sales": 65750
+    }
+  ]
+}
